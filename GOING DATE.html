@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question For You</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec; /* Light pink background */
+            overflow: hidden; 
+            text-align: center;
+        }
+
+        img {
+            /* --- CHANGED HERE --- */
+            width: 200px;  /* Made it much bigger */
+            height: auto;  /* Keeps the aspect ratio correct */
+            margin-bottom: 20px;
+            border-radius: 15px; /* Rounded corners look smoother */
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3); /* faint pink shadow */
+        }
+
+        h1 {
+            color: #d81b60;
+            margin-bottom: 30px;
+            font-size: 24px;
+            padding: 0 20px; /* Prevents text hitting edge of screen on phone */
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap; /* Helps on small phones */
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background-color: #ff4081;
+            color: white;
+            font-weight: bold;
+        }
+
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        #noBtn:hover {
+            background-color: #bdbdbd;
+        }
+
+        /* Success message styling */
+        .success-message {
+            font-size: 32px;
+            color: #d81b60;
+            font-weight: bold;
+            animation: popIn 0.5s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="minion.jpg" alt="Cute Picture">
+
+    <h1 id="question">would you like to going date with me?</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="acceptDate()">Yes</button>
+        <button id="noBtn" onclick="rejectDate()">No</button>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        function rejectDate() {
+            clickCount++;
+            
+            // Grab current font size of Yes button
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            const currentPadding = parseFloat(window.getComputedStyle(yesBtn).paddingTop);
+
+            if (clickCount === 1) {
+                noBtn.innerText = "are you sure?";
+                yesBtn.style.fontSize = (currentSize * 1.5) + "px";
+                yesBtn.style.padding = (currentPadding * 1.5) + "px " + (currentPadding * 3) + "px";
+            } 
+            else if (clickCount === 2) {
+                noBtn.innerText = "why you dont want to going out with me? :(";
+                yesBtn.style.fontSize = (currentSize * 1.5) + "px";
+                yesBtn.style.padding = (currentPadding * 1.5) + "px " + (currentPadding * 3) + "px";
+            } 
+            else {
+                yesBtn.innerText = "you must said yes now";
+                
+                // Styles to make it cover everything
+                yesBtn.style.position = "fixed";
+                yesBtn.style.top = "0";
+                yesBtn.style.left = "0";
+                yesBtn.style.width = "100vw";
+                yesBtn.style.height = "100vh";
+                yesBtn.style.zIndex = "1000";
+                yesBtn.style.fontSize = "50px";
+                yesBtn.style.display = "flex";
+                yesBtn.style.justifyContent = "center";
+                yesBtn.style.alignItems = "center";
+                yesBtn.style.borderRadius = "0";
+            }
+        }
+
+        function acceptDate() {
+            document.body.innerHTML = '<div class="success-message">hehehe thank you ❤️</div>';
+        }
+    </script>
+
+</body>
+</html>
